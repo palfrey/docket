@@ -67,11 +67,19 @@ def beeminder_oauth():
 	db.session.commit()
 	return redirect(url_for('index'))
 
-@app.route("/sync", methods=['POST'])
-def sync():
+@app.route("/beeminder/sync", methods=["POST"])
+def beeminder_sync():
 	existing = User.query.filter_by(todoist_id=session["todoist_id"]).first()
-	api = todoist.api.TodoistAPI(existing.access_token)
-	existing.data = api.sync()
+	goals = requests.get("https://www.beeminder.com/api/v1/users/me/goals.json?filter=frontburner&access_token=%s" % existing.beeminder_access_token)
+	existing.update_beeminder(goals.json(), existing.beeminder_access_token)
+	db.session.commit()
+	return redirect(url_for('index'))
+
+@app.route("/todoist/sync", methods=['POST'])
+def todoist_sync():
+	existing = User.query.filter_by(todoist_id=session["todoist_id"]).first()
+	api = todoist.api.TodoistAPI(existing.todoist_access_token)
+	existing.update_todoist(api.sync(), existing.todoist_access_token)
 	db.session.commit()
 	return redirect(url_for('index'))
 

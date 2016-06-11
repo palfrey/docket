@@ -1,4 +1,5 @@
 import datetime
+import humanize
 
 def build_models(db):
     class User(db.Model):
@@ -17,10 +18,16 @@ def build_models(db):
             self.todoist_access_token = todoist_access_token
             self.todoist_last_update = datetime.datetime.now()
 
+        def todoist_pretty_update(self):
+            return humanize.naturaltime(datetime.datetime.now() - self.todoist_last_update)
+
         def update_todoist(self, todoist, todoist_access_token):
             self.todoist = todoist
             self.todoist_access_token = todoist_access_token
             self.todoist_last_update = datetime.datetime.now()
+
+        def beeminder_pretty_update(self):
+            return humanize.naturaltime(datetime.datetime.now() - self.beeminder_last_update)
 
         def update_beeminder(self, beeminder_goals, beeminder_access_token):
             self.beeminder_goals = beeminder_goals

@@ -3,3 +3,4 @@ PyYAML
 requests
 todoist-python
 Flask-SQLAlchemy
+humanize
