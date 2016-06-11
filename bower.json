@@ -1,0 +1,19 @@
+{
+  "name": "docket",
+  "version": "0.0.1",
+  "authors": [
+    "Tom Parker <palfrey@tevp.net>"
+  ],
+  "description": "Todoist sync",
+  "license": "AGPL3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
