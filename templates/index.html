@@ -20,9 +20,9 @@
 			    {% endfor %}
 			  {% endif %}
 			{% endwith %}
-			{% if todoist == None %}
+			{% if not todoist %}
 				<form action="https://todoist.com/oauth/authorize" method="post">
-					<input type="hidden" name="client_id" value="{{ client_id }}" />
+					<input type="hidden" name="client_id" value="{{ todoist_client_id }}" />
 					<input type="hidden" name="scope" value="data:read_write" />
 					<input type="hidden" name="state" value="secretstring" />
 					<button type="submit" class="btn btn-default">Connect to Todoist</button>
