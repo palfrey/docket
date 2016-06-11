@@ -22,13 +22,13 @@
 			{% endwith %}
 			{% if not todoist %}
 				<form action="https://todoist.com/oauth/authorize" method="post">
-					<input type="hidden" name="client_id" value="{{ todoist_client_id }}" />
+					<input type="hidden" name="client_id" value="{{ todoist['client_id'], }}" />
 					<input type="hidden" name="scope" value="data:read_write" />
 					<input type="hidden" name="state" value="secretstring" />
 					<button type="submit" class="btn btn-default">Connect to Todoist</button>
 				</form>
 			{% else %}
-				{{ todoist.todoist.keys() }} <br />
+				{{ todoist_data.todoist.keys() }} <br />
 				<form action="{{ url_for('sync') }}" method="post">
 					<button type="submit" class="btn btn-primary">Sync with Todoist</button>
 				</form>

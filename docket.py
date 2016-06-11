@@ -9,7 +9,7 @@ from .models import build_models
 
 config = yaml.safe_load(file('config.yaml', 'r'))
 app = Flask(__name__)
-app.secret_key = config["flask_secret_key"]
+app.secret_key = config["flask"]["secret_key"]
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -20,15 +20,15 @@ User = models["User"]
 def index():
 	if "todoist_id" in session:
 		existing = User.query.filter_by(todoist_id=session["todoist_id"]).first()
-		return render_template('index.html', todoist = existing, **config)
+		return render_template('index.html', todoist_data = existing, **config)
 	else:
 		return render_template('index.html', **config)
 
 @app.route("/todoist_oauth", methods=["GET"])
 def todoist_oauth():
 	payload = {
-		'client_id': config["todoist_client_id"],
-		'client_secret': config["todoist_client_secret"],
+		'client_id': config["todoist"]["client_id"],
+		'client_secret': config["todoist"]["client_secret"],
 		'code': request.args["code"],
 		'redirect_uri': url_for("index")
 	}
