@@ -9,6 +9,7 @@ click==6.6                # via flask
 flake8==2.5.4
 Flask-SQLAlchemy==2.1
 Flask==0.11.1             # via flask-sqlalchemy
+gunicorn==19.6.0
 humanize==0.5.1
 itsdangerous==0.24        # via flask
 Jinja2==2.8               # via flask

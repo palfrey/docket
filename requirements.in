@@ -4,5 +4,6 @@ requests
 todoist-python
 Flask-SQLAlchemy
 humanize
+gunicorn
 
 flake8
