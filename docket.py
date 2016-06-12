@@ -1,11 +1,10 @@
-from __future__ import absolute_import
 import requests
 import yaml
 from flask import Flask, render_template, url_for, request, session, redirect, flash
 import todoist
 from todoist.managers.labels import LabelsManager
 from flask_sqlalchemy import SQLAlchemy
-from .models import build_models
+from models import build_models
 import urlparse
 from datetime import datetime, timedelta
 
@@ -66,10 +65,8 @@ def beeminder_oauth():
 	flash("Logged into Beeminder")
 	return redirect(url_for('index'))
 
-@app.route("/todoist/update", methods=['POST'])
-def todoist_update():
-	existing = User.query.filter_by(todoist_id=session["todoist_id"]).first()
-	api = todoist.api.TodoistAPI(existing.todoist_access_token)
+def update_tasks(user):
+	api = todoist.api.TodoistAPI(user.todoist_access_token)
 	data = api.sync()
 	lm = todoist.managers.labels.LabelsManager(api)
 	if "beeminder" not in [x.data['name'] for x in lm.all()]:
@@ -87,7 +84,7 @@ def todoist_update():
 			raise Exception, project
 	beeminder_project = [x for x in pm.all() if x.data['name'] == "Beeminder"][0].data['id']
 
-	goals = requests.get("https://www.beeminder.com/api/v1/users/me/goals.json?filter=frontburner&access_token=%s" % existing.beeminder_access_token).json()
+	goals = requests.get("https://www.beeminder.com/api/v1/users/me/goals.json?filter=frontburner&access_token=%s" % user.beeminder_access_token).json()
 
 	im = todoist.managers.items.ItemsManager(api)
 	existing_names = [
@@ -117,10 +114,19 @@ def todoist_update():
 				labels = [beeminder_label],
 				priority = 4)
 	api.commit()
-	existing.update()
+	user.update()
+
+@app.route("/todoist/update", methods=['POST'])
+def todoist_update():
+	existing = User.query.filter_by(todoist_id=session["todoist_id"]).first()
+	update_tasks(existing)
 	db.session.commit()
 	flash("All goals updated in Todoist")
 	return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    app.run()
+	users = User.query.all()
+	for user in users:
+		print "Updating", user
+		update_tasks(user)
+	db.session.commit()
