@@ -75,7 +75,6 @@ def todoist_oauth():
     existing = User.query.filter_by(todoist_id=todoist_id).all()
     if len(existing) == 0:
         user = User(todoist_id, access_token)
-        user.update()
         db.session.add(user)
     elif len(existing) > 1:
         raise Exception(("Weird things", existing))
