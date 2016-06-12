@@ -7,7 +7,11 @@ from flask_sqlalchemy import SQLAlchemy
 from models import build_models
 import urlparse
 from datetime import datetime, timedelta
+import os
 
+if "DYNO" in os.environ:
+    print "Heroku"
+    raise Exception
 config = yaml.safe_load(open('config.yaml', 'r'))
 app = Flask(__name__)
 app.secret_key = config["flask"]["secret_key"]
