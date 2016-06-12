@@ -1,0 +1,10 @@
+todoist:
+    client_id: TODOIST_CLIENT_ID
+    client_secret: TODOIST_CLIENT_SECRET
+flask:
+    secret_key: SOME_FLASK_ENCYPTION_KEY
+beeminder:
+    client_id: BEEMINDER_CLIENT_ID
+    client_secret: BEEMINDER_CLIENT_SECRET
+app:
+    host: http://localhost:5000/
