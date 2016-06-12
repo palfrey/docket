@@ -8,7 +8,7 @@ from models import build_models
 import urlparse
 from datetime import datetime, timedelta
 
-config = yaml.safe_load(file('config.yaml', 'r'))
+config = yaml.safe_load(open('config.yaml', 'r'))
 app = Flask(__name__)
 app.secret_key = config["flask"]["secret_key"]
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
@@ -140,6 +140,6 @@ def todoist_update():
 if __name__ == "__main__":
     users = User.query.all()
     for user in users:
-        print "Updating", user
+        print("Updating", user)
         update_tasks(user)
     db.session.commit()
