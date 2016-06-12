@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 config = yaml.safe_load(open('config.yaml', 'r'))
 app = Flask(__name__)
 app.secret_key = config["flask"]["secret_key"]
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = config["app"]["database_uri"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 models = build_models(db)

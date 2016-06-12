@@ -8,3 +8,4 @@ beeminder:
     client_secret: BEEMINDER_CLIENT_SECRET
 app:
     host: http://localhost:5000/
+    database_uri: sqlite:////tmp/test.db
