@@ -15,6 +15,8 @@ def build_models(db):
             self.todoist_last_update = datetime.datetime.now()
 
         def pretty_update(self):
+            if self.last_update is None:
+                return "Never"
             return humanize.naturaltime(
                 datetime.datetime.now() - self.last_update)
 
