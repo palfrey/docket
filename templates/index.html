@@ -20,32 +20,33 @@
 			    {% endfor %}
 			  {% endif %}
 			{% endwith %}
-			{% if not data %}
-				<form action="https://todoist.com/oauth/authorize" method="post">
-					<input type="hidden" name="client_id" value="{{ todoist['client_id'] }}" />
-					<input type="hidden" name="scope" value="data:read_write" />
-					<input type="hidden" name="state" value="secretstring" />
-					<button type="submit" class="btn btn-default">Connect to Todoist</button>
-				</form>
-			{% else %}
-				{{ data.todoist.keys()|sort }} <br />
-				{{ data.todoist_pretty_update() }}
-				<form action="{{ url_for('todoist_sync') }}" method="post">
-					<button type="submit" class="btn btn-primary">Sync with Todoist</button>
-				</form>
-				{% if data["beeminder_auth_token"] == None %}
-					<a href="https://www.beeminder.com/apps/authorize?client_id={{ beeminder['client_id'] }}&redirect_uri={{ beeminder_url }}&response_type=token" class="btn btn-primary">Auth with Beeminder</a><br />
-				{% else %}
-					{{ data.beeminder_goals[0].keys()|sort }} <br />
-					{{ data.beeminder_pretty_update() }}
-					<form action="{{ url_for('beeminder_sync') }}" method="post">
-						<button type="submit" class="btn btn-primary">Sync with Beeminder</button>
-					</form>
+
+			<ol>
+				<li>
+					{% if not data %}
+						<form action="https://todoist.com/oauth/authorize" method="post">
+							<input type="hidden" name="client_id" value="{{ todoist['client_id'] }}" />
+							<input type="hidden" name="scope" value="data:read_write" />
+							<input type="hidden" name="state" value="secretstring" />
+							<button type="submit" class="btn btn-default">Connect to Todoist</button>
+						</form>
+					{% else %}
+						<strong>Connected to Todoist</strong>
+					{% endif %}
+				</li>
+				<li>
+					{% if not data or data["beeminder_access_token"] == None %}
+						<a href="https://www.beeminder.com/apps/authorize?client_id={{ beeminder['client_id'] }}&redirect_uri={{ beeminder_url }}&response_type=token" class="btn btn-primary"{% if not data %} disabled="disabled"{% endif %}>Auth with Beeminder</a><br />
+					{% else %}
+						<strong>Connected to Beeminder</strong>
+					{% endif %}
+				</li>
+				<li>
 					<form action="{{ url_for('todoist_update') }}" method="post">
-						<button type="submit" class="btn btn-danger">Update Todoist</button>
+						<button type="submit" class="btn btn-primary"{% if not data or data["beeminder_auth_token"] == None %} disabled="disabled"{% endif %}>Update Todoist</button>
 					</form>
-				{% endif %}
-			{% endif %}
+					Last updated: {{ data.pretty_update() if data else "Never" }}
+				</li>
 		</div>
 	</body>
 </html>
