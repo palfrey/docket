@@ -9,11 +9,29 @@ import urlparse
 from datetime import datetime, timedelta
 import os
 
-if "DYNO" in os.environ:
-    print "Heroku"
-    raise Exception
-config = yaml.safe_load(open('config.yaml', 'r'))
 app = Flask(__name__)
+if "DYNO" in os.environ:
+    app.logger.info("Found DYNO environment variable, so assuming we're in Heroku")
+    config = {
+        "app": {
+            "database_uri": os.environ["DATABASE_URL"],
+            "host": "Don't know"
+        },
+        "todoist": {
+            "client_id": os.environ["TODOIST_CLIENT_ID"],
+            "client_secret": os.environ["TODOIST_CLIENT_SECRET"]
+        },
+        "beeminder": {
+            "client_id": os.environ["BEEMINDER_CLIENT_ID"],
+            "client_secret": os.environ["BEEMINDER_CLIENT_SECRET"]
+        },
+        "flask": {
+            "secret_key": os.environ["FLASK_ENCRYPTION_KEY"]
+        }
+    }
+else:
+    config = yaml.safe_load(open('config.yaml', 'r'))
+
 app.secret_key = config["flask"]["secret_key"]
 app.config['SQLALCHEMY_DATABASE_URI'] = config["app"]["database_uri"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
