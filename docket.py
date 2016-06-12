@@ -11,7 +11,8 @@ import os
 
 app = Flask(__name__)
 if "DYNO" in os.environ:
-    app.logger.info("Found DYNO environment variable, so assuming we're in Heroku")
+    app.logger.info(
+        "Found DYNO environment variable, so assuming we're in Heroku")
     config = {
         "app": {
             "database_uri": os.environ["DATABASE_URL"],
