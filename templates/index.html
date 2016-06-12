@@ -12,7 +12,7 @@
 		<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="container">
 			{% with messages = get_flashed_messages() %}
 			  {% if messages %}
 			    {% for message in messages %}
@@ -20,6 +20,12 @@
 			    {% endfor %}
 			  {% endif %}
 			{% endwith %}
+			<div class="jumbotron">
+				<h1>Docket</h1>
+				<p>
+					Docket is a tool for adding tasks to <a href="https://todoist.com/">Todoist</a> for your <a href="https://www.beeminder.com/">Beeminder</a> todo list. Connect your accounts below, and then you can either manually update them with the "update" button below, or they will also be automatically updated every few hours.
+				</p>
+			</div>
 
 			<ol>
 				<li>
@@ -43,7 +49,7 @@
 				</li>
 				<li>
 					<form action="{{ url_for('todoist_update') }}" method="post">
-						<button type="submit" class="btn btn-primary"{% if not data or data["beeminder_auth_token"] == None %} disabled="disabled"{% endif %}>Update Todoist</button>
+						<button type="submit" class="btn btn-primary"{% if not data or data["beeminder_auth_token"] == None %} disabled="disabled"{% endif %}>Manually update Todoist</button> (this will also occur automatically every few hours)
 					</form>
 					Last updated: {{ data.pretty_update() if data else "Never" }}
 				</li>
