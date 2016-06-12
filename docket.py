@@ -105,9 +105,17 @@ def todoist_update():
 			item = [x for x in data['items'] if x['content'] == title][0]
 			if item['project_id'] != beeminder_project:
 				im.move({item['project_id']:[item['id']]}, beeminder_project)
-			im.update(item['id'], date_string=when.strftime("%Y/%m/%d"), checked=0, in_history=0, project_id = beeminder_project)
+			im.update(item['id'],
+				date_string=when.strftime("%Y/%m/%d"),
+				checked=0,
+				in_history=0,
+				project_id = beeminder_project,
+				priority = 4)
 		else:
-			item = im.add(title, beeminder_project, date_string=when.strftime("%Y/%m/%d"), labels = [beeminder_label])
+			item = im.add(title, beeminder_project,
+				date_string=when.strftime("%Y/%m/%d"),
+				labels = [beeminder_label],
+				priority = 4)
 	api.commit()
 	existing.update()
 	db.session.commit()
