@@ -1,6 +1,7 @@
 import datetime
 import humanize
 
+
 def build_models(db):
     class User(db.Model):
         todoist_id = db.Column(db.Integer, primary_key=True)
@@ -14,7 +15,8 @@ def build_models(db):
             self.todoist_last_update = datetime.datetime.now()
 
         def pretty_update(self):
-            return humanize.naturaltime(datetime.datetime.now() - self.last_update)
+            return humanize.naturaltime(
+                datetime.datetime.now() - self.last_update)
 
         def update(self):
             self.last_update = datetime.datetime.now()

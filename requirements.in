@@ -4,3 +4,5 @@ requests
 todoist-python
 Flask-SQLAlchemy
 humanize
+
+flake8

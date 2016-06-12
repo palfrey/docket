@@ -6,12 +6,16 @@
 #
 
 click==6.6                # via flask
+flake8==2.5.4
 Flask-SQLAlchemy==2.1
 Flask==0.11.1             # via flask-sqlalchemy
 humanize==0.5.1
 itsdangerous==0.24        # via flask
 Jinja2==2.8               # via flask
 MarkupSafe==0.23          # via jinja2
+mccabe==0.4.0             # via flake8
+pep8==1.7.0               # via flake8
+pyflakes==1.0.0           # via flake8
 PyYAML==3.11
 requests==2.10.0
 SQLAlchemy==1.0.13        # via flask-sqlalchemy
