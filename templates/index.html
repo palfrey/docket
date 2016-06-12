@@ -28,6 +28,11 @@
 					<button type="submit" class="btn btn-default">Connect to Todoist</button>
 				</form>
 			{% else %}
+				{{ data.todoist.keys()|sort }} <br />
+				{{ data.todoist_pretty_update() }}
+				<form action="{{ url_for('todoist_sync') }}" method="post">
+					<button type="submit" class="btn btn-primary">Sync with Todoist</button>
+				</form>
 				{% if data["beeminder_auth_token"] == None %}
 					<a href="https://www.beeminder.com/apps/authorize?client_id={{ beeminder['client_id'] }}&redirect_uri={{ beeminder_url }}&response_type=token" class="btn btn-primary">Auth with Beeminder</a><br />
 				{% else %}
@@ -36,12 +41,10 @@
 					<form action="{{ url_for('beeminder_sync') }}" method="post">
 						<button type="submit" class="btn btn-primary">Sync with Beeminder</button>
 					</form>
+					<form action="{{ url_for('todoist_update') }}" method="post">
+						<button type="submit" class="btn btn-danger">Update Todoist</button>
+					</form>
 				{% endif %}
-				{{ data.todoist.keys()|sort }} <br />
-				{{ data.todoist_pretty_update() }}
-				<form action="{{ url_for('todoist_sync') }}" method="post">
-					<button type="submit" class="btn btn-primary">Sync with Todoist</button>
-				</form>
 			{% endif %}
 		</div>
 	</body>
