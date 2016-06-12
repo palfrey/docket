@@ -27,5 +27,8 @@ def build_models(db):
         def __repr__(self):
             return '<User %r>' % self.todoist_id
 
-    db.create_all()
+    try:
+        User.query.first()
+    except:  # Assume that failure means tables not created
+        db.create_all()
     return {"User": User}
