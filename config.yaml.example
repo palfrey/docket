@@ -7,5 +7,4 @@ beeminder:
     client_id: BEEMINDER_CLIENT_ID
     client_secret: BEEMINDER_CLIENT_SECRET
 app:
-    host: http://localhost:5000/
     database_uri: sqlite:////tmp/test.db

@@ -15,8 +15,7 @@ if "DYNO" in os.environ:
         "Found DYNO environment variable, so assuming we're in Heroku")
     config = {
         "app": {
-            "database_uri": os.environ["DATABASE_URL"],
-            "host": "Don't know"
+            "database_uri": os.environ["DATABASE_URL"]
         },
         "todoist": {
             "client_id": os.environ["TODOIST_CLIENT_ID"],
@@ -45,7 +44,7 @@ User = models["User"]
 def index():
     if "todoist_id" in session:
         config["beeminder_url"] = urlparse.urljoin(
-            config["app"]['host'], url_for('beeminder_oauth'))
+            request.url_root, url_for('beeminder_oauth'))
         existing = User.query.filter_by(
             todoist_id=session["todoist_id"]).first()
         if existing is None:
