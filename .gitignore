@@ -2,3 +2,4 @@ ENV
 ENV3
 config.yaml
 .env
+node_modules/
