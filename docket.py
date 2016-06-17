@@ -172,6 +172,9 @@ def todoist_update():
 if __name__ == "__main__":
     users = User.query.all()
     for user in users:
+        if user.beeminder_access_token is None:
+            print ("Skipping %s because no beeminder token" % user)
+            continue
         print("Updating", user)
         update_tasks(user)
     db.session.commit()
