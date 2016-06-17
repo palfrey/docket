@@ -92,6 +92,13 @@ def beeminder_oauth():
     return redirect(url_for('index'))
 
 
+# From http://stackoverflow.com/a/25097622/320546
+def nsf(num, n=1):
+    """n-Significant Figures"""
+    numstr = ("{0:.%ie}" % (n-1)).format(num)
+    return float(numstr)
+
+
 def update_tasks(user):
     api = todoist.api.TodoistAPI(user.todoist_access_token)
     data = api.sync()
@@ -131,18 +138,22 @@ def update_tasks(user):
             when = when.date() - timedelta(days=1)
         else:
             when = when.date()
-        if title in existing_names:
-            item = [x for x in data['items'] if x['content'] == title][0]
+        longtitle = "%s (%s)" % (
+            title, nsf(goal["safebump"]-goal["curval"], 2))
+        if title in [x[:len(title)] for x in existing_names]:
+            item = [x for x in data['items']
+                    if x['content'][:len(title)] == title][0]
             if item['project_id'] != beeminder_project:
                 im.move({item['project_id']: [item['id']]}, beeminder_project)
             im.update(item['id'],
+                      content=longtitle,
                       date_string=when.strftime("%Y/%m/%d"),
                       checked=0,
                       in_history=0,
                       project_id=beeminder_project,
                       priority=4)
         else:
-            item = im.add(title, beeminder_project,
+            item = im.add(longtitle, beeminder_project,
                           date_string=when.strftime("%Y/%m/%d"),
                           labels=[beeminder_label],
                           priority=4)
