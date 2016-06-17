@@ -1,3 +1,4 @@
+from __future__ import print_function
 import requests
 import yaml
 from flask import (Flask, render_template, url_for,
@@ -173,7 +174,7 @@ if __name__ == "__main__":
     users = User.query.all()
     for user in users:
         if user.beeminder_access_token is None:
-            print ("Skipping %s because no beeminder token" % user)
+            print("Skipping %s because no beeminder token" % user)
             continue
         print("Updating", user)
         update_tasks(user)
