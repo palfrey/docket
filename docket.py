@@ -96,6 +96,8 @@ def beeminder_oauth():
 # From http://stackoverflow.com/a/25097622/320546
 def nsf(num, n=1):
     """n-Significant Figures"""
+    if num >= 10 ** n:
+        return int(num)  # All available in the pre-decimal bits
     numstr = ("{0:.%ie}" % (n-1)).format(num)
     return float(numstr)
 
