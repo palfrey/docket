@@ -154,12 +154,12 @@ def update_tasks(user):
                       checked=0,
                       in_history=0,
                       project_id=beeminder_project,
-                      priority=4)
+                      priority=3)
         else:
             item = im.add(longtitle, beeminder_project,
                           date_string=when.strftime("%Y/%m/%d"),
                           labels=[beeminder_label],
-                          priority=4)
+                          priority=3)
     api.commit()
     user.update()
 
