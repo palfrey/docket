@@ -6,7 +6,7 @@ from flask import (Flask, render_template, url_for,
 import todoist
 from flask_sqlalchemy import SQLAlchemy
 from .models import build_models
-import six.moves.urllib.parse as urlparse # Python 2/3 compat
+import six.moves.urllib.parse as urlparse  # Python 2/3 compat
 from datetime import datetime, timedelta
 import os
 
