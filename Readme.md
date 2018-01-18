@@ -10,7 +10,7 @@ Local Setup
 2. Register app at https://developer.todoist.com/appconsole.html and get the OAuth Client/Secret for `config.yaml`
     * OAuth Redirect URL there to "&lt;host&gt;/todoist/oauth" (http://localhost:5000/todoist/oauth for local setup)
 3. Register app at https://www.beeminder.com/apps/new and again get the OAuth values for `config.yaml`
-    * Redirect URL should be "&lt;host&gt;/todoist/oauth" (http://localhost:5000/todoist/oauth for local setup)
+    * Redirect URL should be "&lt;host&gt;/todoist/oauth" (http://localhost:5000/beeminder/oauth for local setup)
     * Post deauthorisation URL isn't set
 4. If you've already got [Bower](https://bower.io/) installed, just run `bower install`. Otherwise, install [Node.js](https://nodejs.org/en/) and run `npm install`, which will install and run Bower.
 5. `pip install -r requirements.txt` (preferably within a [Virtualenv](https://virtualenv.pypa.io/en/stable/) because that's just sensible)
