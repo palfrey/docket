@@ -1,8 +1,12 @@
 {
-	"dependencies": {
-		"bower": "1.7.9"
-	},
-	"scripts": {
-		"postinstall": "./node_modules/bower/bin/bower install"
-	}
+  "dependencies": {
+    "@bower_components/bootstrap": "twbs/bootstrap#3.3.6",
+    "@bower_components/jquery": "jquery/jquery-dist#1.9.1 - 2"
+  },
+  "scripts": {
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'static/bower_components', 'junction') } catch (e) { }\""
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  }
 }
