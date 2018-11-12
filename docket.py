@@ -131,7 +131,9 @@ def update_tasks(user):
     goals = requests.get(
         "https://www.beeminder.com/api/v1/users/me/goals.json" +
         ("?filter=frontburner&access_token=%s"
-         % user.beeminder_access_token)).json()
+         % user.beeminder_access_token))
+    goals.raise_for_status()
+    goals = goals.json()
 
     im = todoist.managers.items.ItemsManager(api)
     existing_names = [
