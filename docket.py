@@ -118,7 +118,9 @@ def update_tasks(user):
         api.commit()
     else:
         try:
-            project = [x for x in api['projects'] if x['name'] == "Beeminder"][0]
+            project = [
+                x for x in api['projects']
+                if x['name'] == "Beeminder"][0]
         except IndexError:
             raise Exception(api)
         if project['is_deleted'] == 1:
