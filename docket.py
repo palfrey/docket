@@ -132,6 +132,12 @@ def update_tasks(user):
         "https://www.beeminder.com/api/v1/users/me/goals.json" +
         ("?filter=frontburner&access_token=%s"
          % user.beeminder_access_token))
+    if goals.status_code == 401:
+        print("Beeminder access token not valid for %s" % user)
+        user.beeminder_access_token = None
+        db.session.commit()
+        return
+
     goals.raise_for_status()
     goals = goals.json()
 
