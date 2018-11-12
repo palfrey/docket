@@ -71,8 +71,8 @@ def todoist_oauth():
     access_token = ret["access_token"]
     flash("Logged into Todoist")
     api = todoist.api.TodoistAPI(access_token)
-    data = api.sync()
-    todoist_id = data["user"]["id"]
+    api.sync()
+    todoist_id = api["user"]["id"]
     existing = User.query.filter_by(todoist_id=todoist_id).all()
     if len(existing) == 0:
         user = User(todoist_id, access_token)
@@ -104,7 +104,7 @@ def nsf(num, n=1):
 
 def update_tasks(user):
     api = todoist.api.TodoistAPI(user.todoist_access_token)
-    data = api.sync()
+    api.sync()
     lm = todoist.managers.labels.LabelsManager(api)
     if "beeminder" not in [x.data['name'] for x in lm.all()]:
         lm.add("beeminder")
@@ -117,7 +117,10 @@ def update_tasks(user):
         pm.add("Beeminder")
         api.commit()
     else:
-        project = [x for x in data['projects'] if x['name'] == "Beeminder"][0]
+        try:
+            project = [x for x in api['projects'] if x['name'] == "Beeminder"][0]
+        except IndexError:
+            raise Exception(api)
         if project['is_deleted'] == 1:
             raise Exception(project)
     beeminder_project = [x for x in pm.all()
@@ -130,7 +133,7 @@ def update_tasks(user):
 
     im = todoist.managers.items.ItemsManager(api)
     existing_names = [
-        x['content'] for x in data['items']
+        x['content'] for x in api['items']
         if beeminder_label in x['labels']]
     for goal in goals:
         title = goal['title']
@@ -144,7 +147,7 @@ def update_tasks(user):
         longtitle = "%s (%s)" % (
             title, nsf(goal["safebump"]-goal["curval"], 2))
         if title in [x[:len(title)] for x in existing_names]:
-            item = [x for x in data['items']
+            item = [x for x in api['items']
                     if x['content'][:len(title)] == title][0]
             if item['project_id'] != beeminder_project:
                 im.move({item['project_id']: [item['id']]}, beeminder_project)
