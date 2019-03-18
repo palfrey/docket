@@ -24,6 +24,6 @@ pyyaml==3.11
 requests==2.20.1
 six==1.11.0
 sqlalchemy==1.0.13        # via flask-sqlalchemy
-todoist-python==7.0.18
+todoist-python==7.0.19
 urllib3==1.24.1           # via requests
 werkzeug==0.14.1          # via flask
