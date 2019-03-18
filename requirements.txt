@@ -12,7 +12,7 @@ flask-sqlalchemy==2.1
 flask==1.0.2
 gunicorn==19.6.0
 humanize==0.5.1
-idna==2.7                 # via requests
+idna==2.8                 # via requests
 itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
 markupsafe==0.23          # via jinja2
