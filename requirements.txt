@@ -19,7 +19,7 @@ markupsafe==0.23          # via jinja2
 mccabe==0.4.0             # via flake8
 pep8==1.7.0               # via flake8
 psycopg2==2.7.3.2
-pyflakes==1.0.0           # via flake8
+pyflakes==2.1.1           # via flake8
 pyyaml==3.11
 requests==2.20.1
 six==1.11.0
