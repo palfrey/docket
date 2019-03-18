@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-certifi==2018.10.15       # via requests
+certifi==2019.3.9       # via requests
 chardet==3.0.4            # via requests
 click==6.6                # via flask
 flake8==2.5.4
