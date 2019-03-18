@@ -6,7 +6,7 @@
 #
 certifi==2018.10.15       # via requests
 chardet==3.0.4            # via requests
-click==6.6                # via flask
+click==7.0                # via flask
 flake8==2.5.4
 flask-sqlalchemy==2.1
 flask==1.0.2
