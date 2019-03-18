@@ -10,7 +10,7 @@ click==6.6                # via flask
 flake8==2.5.4
 flask-sqlalchemy==2.1
 flask==1.0.2
-gunicorn==19.6.0
+gunicorn==19.9.0
 humanize==0.5.1
 idna==2.7                 # via requests
 itsdangerous==0.24        # via flask
