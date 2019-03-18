@@ -1,6 +1,6 @@
 Docket
 ======
-[![Build Status](https://travis-ci.org/palfrey/docket.svg?branch=master)](https://travis-ci.org/palfrey/docket)
+[![Build Status](https://travis-ci.com/palfrey/docket.svg?branch=master)](https://travis-ci.com/palfrey/docket)
 
 Docket allows users of both [Beeminder](https://www.beeminder.com/) and [Todoist](https://en.todoist.com/) to get a merged view of both by adding synchronised tasks in Todoist for your Beeminder "last day to do this thing" days.
 
