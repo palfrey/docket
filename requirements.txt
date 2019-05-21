@@ -14,7 +14,7 @@ gunicorn==19.6.0
 humanize==0.5.1
 idna==2.7                 # via requests
 itsdangerous==0.24        # via flask
-jinja2==2.10              # via flask
+jinja2==2.10.1            # via flask
 markupsafe==0.23          # via jinja2
 mccabe==0.4.0             # via flake8
 pep8==1.7.0               # via flake8
