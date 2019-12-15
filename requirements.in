@@ -5,7 +5,8 @@ todoist-python
 Flask-SQLAlchemy
 humanize
 gunicorn
-psycopg2
+psycopg2-binary
 six
 
 flake8
+pip-tools
