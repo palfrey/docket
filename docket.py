@@ -72,7 +72,11 @@ def todoist_oauth():
     flash("Logged into Todoist")
     api = todoist.api.TodoistAPI(access_token)
     api.sync()
-    todoist_id = api["user"]["id"]
+    try:
+        todoist_id = api["user"]["id"]
+    except KeyError:
+        print(api)
+        raise
     existing = User.query.filter_by(todoist_id=todoist_id).all()
     if len(existing) == 0:
         user = User(todoist_id, access_token)
